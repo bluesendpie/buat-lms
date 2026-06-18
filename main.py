@@ -2,7 +2,7 @@ import os
 import json
 import re
 import logging
-import requests
+from curl_cffi import requests
 from ics import Calendar
 import discord
 import asyncio
@@ -77,7 +77,7 @@ class LMSActionClient(discord.Client):
                 'Sec-Fetch-Site': 'none',
                 'Sec-Fetch-User': '?1'
             }
-            response = requests.get(LMS_ICAL_URL, headers=headers, timeout=30)
+            response = requests.get(LMS_ICAL_URL, impersonate="chrome110", timeout=30)
             
             if response.status_code != 200:
                 logger.error(f"LMS server returned HTTP {response.status_code}")
